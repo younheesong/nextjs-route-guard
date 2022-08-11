@@ -1,34 +1,17 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 목적
 
-## Getting Started
+더 편하게 확인 할 수 있는 next.js navigation guard 만들기
 
-First, run the development server:
+# 기존 문제점
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+next.js는 pages 폴더 안에 바로 path가 매핑되는 구조이다.
+기존의 vue, react는 routes를 관리하는 파일이 있어, 거기서 쉽게 route navigation 설정이 가능하다.
+한편, next.js는 그렇게 하지 못하기 때문에,
+단순하게 getStaticProps를 이용하는 등으로 page 별로 처리를 할 수 있다.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+이렇게 할 경우, 매 페이지마다 getStaticProps를 선언해야 하는 불필요함과
+페이지 별 접근 권한 변경 시, 고치기가 불편할 수 있다.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+# 해결 방향
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+hoc 구조로 각 page에 접근할 때마다 먼저 page에 대한 guard 처리할 middleware를 만든다.
